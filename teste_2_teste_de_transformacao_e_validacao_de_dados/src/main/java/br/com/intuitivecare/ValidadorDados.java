@@ -81,8 +81,8 @@ public class ValidadorDados {
      * Marca registros inválidos com [INVALIDO] mas os mantém no arquivo
      */
     public static void main(String[] args) {
-        String caminhoEntrada = "teste_1_api_integracao\\output\\consolidado_despesas.csv";
-        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados\\output\\consolidado_despesas_validado.csv";
+        String caminhoEntrada = "teste_1_api_integracao/output/consolidado_despesas.csv";
+        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados/output/consolidado_despesas_validado.csv";
         new java.io.File(caminhoSaida).getParentFile().mkdirs();
         
         int totalRegistros = 0;

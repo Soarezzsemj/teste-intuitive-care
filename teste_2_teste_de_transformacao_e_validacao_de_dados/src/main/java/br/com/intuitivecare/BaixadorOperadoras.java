@@ -93,7 +93,7 @@ public class BaixadorOperadoras {
      * Orquestra download do arquivo CSV
      */
     public static void main(String[] args) {
-        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados\\data\\raw\\operadoras.csv";
+        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados/data/raw/operadoras.csv";
         new java.io.File(caminhoSaida).getParentFile().mkdirs();
         
         try {

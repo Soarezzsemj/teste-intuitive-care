@@ -73,8 +73,8 @@ public class AgregadorDespesas {
      * Lê arquivo consolidado/enriquecido e agrega por RazaoSocial/UF
      */
     public static void main(String[] args) {
-        String caminhoEntrada = "teste_2_teste_de_transformacao_e_validacao_de_dados\\output\\consolidado_despesas_enriquecido.csv";
-        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados\\output\\despesas_agregadas.csv";
+        String caminhoEntrada = "teste_2_teste_de_transformacao_e_validacao_de_dados/output/consolidado_despesas_enriquecido.csv";
+        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados/output/despesas_agregadas.csv";
         new java.io.File(caminhoSaida).getParentFile().mkdirs();
         
         // Mapa para agrupar estatísticas (chave: "RazaoSocial;UF")

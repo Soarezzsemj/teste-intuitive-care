@@ -96,9 +96,9 @@ public class EnriquecedorDados {
      * Faz join e enriquece dados com informações cadastrais
      */
     public static void main(String[] args) {
-        String caminhoConsolidado = "teste_1_api_integracao\\output\\consolidado_despesas.csv";
-        String caminhoOperadoras = "teste_2_teste_de_transformacao_e_validacao_de_dados\\data\\raw\\operadoras.csv";
-        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados\\output\\consolidado_despesas_enriquecido.csv";
+        String caminhoConsolidado = "teste_1_api_integracao/output/consolidado_despesas.csv";
+        String caminhoOperadoras = "teste_2_teste_de_transformacao_e_validacao_de_dados/data/raw/operadoras.csv";
+        String caminhoSaida = "teste_2_teste_de_transformacao_e_validacao_de_dados/output/consolidado_despesas_enriquecido.csv";
         new java.io.File(caminhoSaida).getParentFile().mkdirs();
         
         // Carrega operadoras em memória

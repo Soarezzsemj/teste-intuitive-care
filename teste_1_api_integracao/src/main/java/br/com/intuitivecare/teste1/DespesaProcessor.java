@@ -1,4 +1,4 @@
-package main.java.br.com.intuitivecare;
+package main.java.br.com.intuitivecare.teste1;
 
 import java.io.*;
 import java.net.HttpURLConnection;

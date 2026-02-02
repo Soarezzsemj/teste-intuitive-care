@@ -1,4 +1,4 @@
-package main.java.br.com.intuitivecare;
+package main.java.br.com.intuitivecare.teste1;
 
 /**
  * Orquestrador principal do processamento de dados ANS.
