@@ -2,8 +2,12 @@
 -- Estrutura de tabelas normalizadas (Opção B)
 -- Justificativas técnicas nos comentários
 
+-- Criar banco de dados
+CREATE DATABASE IF NOT EXISTS intuitive_care CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE intuitive_care;
+
 -- Tabela de dados cadastrais das operadoras
-CREATE TABLE operadoras (
+CREATE TABLE IF NOT EXISTS operadoras (
     id_operadora INT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     cnpj VARCHAR(20) UNIQUE NOT NULL,
@@ -14,7 +18,7 @@ CREATE TABLE operadoras (
 );
 
 -- Tabela de despesas consolidadas
-CREATE TABLE despesas_consolidadas (
+CREATE TABLE IF NOT EXISTS despesas_consolidadas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_operadora INT NOT NULL,
     trimestre DATE NOT NULL,
@@ -26,7 +30,7 @@ CREATE TABLE despesas_consolidadas (
 );
 
 -- Tabela de despesas agregadas
-CREATE TABLE despesas_agregadas (
+CREATE TABLE IF NOT EXISTS despesas_agregadas (
     id INT PRIMARY KEY AUTO_INCREMENT,
     id_operadora INT NOT NULL,
     trimestre DATE NOT NULL,

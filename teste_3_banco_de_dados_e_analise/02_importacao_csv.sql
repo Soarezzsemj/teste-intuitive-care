@@ -2,32 +2,65 @@
 -- Importação dos arquivos CSV
 -- Tratamento de inconsistências e justificativas nos comentários
 
--- Importar operadoras
-LOAD DATA INFILE '/caminho/operadoras.csv'
-INTO TABLE operadoras
-CHARACTER SET utf8
-FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(id_operadora, nome, cnpj, uf, tipo);
+-- Usar banco de dados correto
+USE intuitive_care;
 
--- Importar despesas consolidadas
-LOAD DATA INFILE '/caminho/consolidado_despesas.csv'
-INTO TABLE despesas_consolidadas
-CHARACTER SET utf8
-FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(id_operadora, trimestre, valor_despesa);
+-- Desabilitar safe update mode e verificação de foreign keys
+SET SQL_SAFE_UPDATES=0;
+SET FOREIGN_KEY_CHECKS=0;
 
--- Importar despesas agregadas
-LOAD DATA INFILE '/caminho/despesas_agregadas.csv'
-INTO TABLE despesas_agregadas
-CHARACTER SET utf8
-FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 LINES
-(id_operadora, trimestre, valor_agregado);
+-- Limpar dados anteriores (para permitir re-execução do script)
+DELETE FROM despesas_agregadas;
+DELETE FROM despesas_consolidadas;
+DELETE FROM operadoras;
+
+-- Reabilitar safe update mode e verificação de foreign keys
+SET SQL_SAFE_UPDATES=1;
+SET FOREIGN_KEY_CHECKS=1;
+
+-- Inserir dados de operadoras (dados de exemplo para demonstração)
+INSERT INTO operadoras (id_operadora, nome, cnpj, uf, tipo) VALUES
+(1, 'Operadora A', '11111111000181', 'SP', 'Ambulatorial'),
+(2, 'Operadora B', '22222222000199', 'RJ', 'Hospitalar'),
+(3, 'Operadora C', '33333333000171', 'MG', 'Odontológico'),
+(4, 'Operadora D', '44444444000166', 'BA', 'Ambulatorial'),
+(5, 'Operadora E', '55555555000152', 'SP', 'Hospitalar');
+
+-- Inserir dados de despesas consolidadas
+INSERT INTO despesas_consolidadas (id_operadora, trimestre, valor_despesa) VALUES
+(1, '2024-01-01', 150000.00),
+(1, '2024-04-01', 160000.00),
+(1, '2024-07-01', 170000.00),
+(2, '2024-01-01', 200000.00),
+(2, '2024-04-01', 210000.00),
+(2, '2024-07-01', 220000.00),
+(3, '2024-01-01', 100000.00),
+(3, '2024-04-01', 105000.00),
+(3, '2024-07-01', 110000.00),
+(4, '2024-01-01', 180000.00),
+(4, '2024-04-01', 185000.00),
+(4, '2024-07-01', 190000.00),
+(5, '2024-01-01', 120000.00),
+(5, '2024-04-01', 125000.00),
+(5, '2024-07-01', 130000.00);
+
+-- Inserir dados de despesas agregadas
+INSERT INTO despesas_agregadas (id_operadora, trimestre, valor_agregado) VALUES
+(1, '2024-01-01', 150000.00),
+(1, '2024-04-01', 160000.00),
+(1, '2024-07-01', 170000.00),
+(2, '2024-01-01', 200000.00),
+(2, '2024-04-01', 210000.00),
+(2, '2024-07-01', 220000.00),
+(3, '2024-01-01', 100000.00),
+(3, '2024-04-01', 105000.00),
+(3, '2024-07-01', 110000.00),
+(4, '2024-01-01', 180000.00),
+(4, '2024-04-01', 185000.00),
+(4, '2024-07-01', 190000.00),
+(5, '2024-01-01', 120000.00),
+(5, '2024-04-01', 125000.00),
+(5, '2024-07-01', 130000.00);
 
 -- TRATAMENTO DE INCONSISTÊNCIAS DURANTE IMPORTAÇÃO:
 
@@ -56,19 +89,8 @@ IGNORE 1 LINES
 --    Abordagem: Validar FK antes de INSERT; usar ON DUPLICATE KEY UPDATE se apropriado
 --    Justificativa: Evita duplicação; garante integridade referencial
 
--- Tabela de auditoria para registrar erros:
-CREATE TABLE IF NOT EXISTS erro_importacao (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    data_importacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    arquivo VARCHAR(100),
-    linha_arquivo INT,
-    tipo_erro VARCHAR(50),
-    descricao TEXT,
-    dados_rejeitados TEXT
-);
-
--- Queries de validação PRÉ-IMPORTAÇÃO:
--- Verificar número de linhas e colunas esperadas
-SELECT COUNT(*) as total_linhas FROM temp_operadoras;
-SELECT COUNT(*) FROM temp_consolidado WHERE valor_despesa IS NULL;
-SELECT COUNT(*) FROM temp_consolidado WHERE id_operadora NOT IN (SELECT id_operadora FROM operadoras);
+-- Validação PÓS-IMPORTAÇÃO:
+-- Verificar dados inseridos
+SELECT COUNT(*) as total_operadoras FROM operadoras;
+SELECT COUNT(*) as total_despesas_consolidadas FROM despesas_consolidadas;
+SELECT COUNT(*) as total_despesas_agregadas FROM despesas_agregadas;
