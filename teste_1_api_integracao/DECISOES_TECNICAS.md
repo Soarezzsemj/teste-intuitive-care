@@ -69,10 +69,6 @@ String trimestre = colunas[2].trim().replace("\"", "");
 - ✅ Rasteia contadores de inconsistências
 - ✅ Relata estatísticas finais ao terminar
 
-**O que NÃO faz:**
-- ❌ Não rejeita/filtra dados (aceita tudo)
-- ❌ Não gera relatório separado em arquivo
-- ❌ Não valida formato de trimestre
 
 **Resultado na prática:** Todas as 747 RegANS foram processadas e loggadas com sucesso, com inconsistências identificadas em tempo real
 
@@ -174,10 +170,6 @@ teste_1_api_integracao/output/
 └── eventos_sinistros.csv         (Intermediário: dados filtrados)
 ```
 
-**Não gera (removido para simplicidade):**
-- ❌ consolidado_despesas.zip
-- ❌ relatorio_inconsistencias.csv
-- ❌ Qualquer relatório de erros
 
 ## 9. RESUMO DE DECISÕES
 
